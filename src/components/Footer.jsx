@@ -9,7 +9,7 @@ const Footer = () => {
                 <div className="footer-brand">
                     <a href="/" className="nav-logo" style={{ marginBottom: '1.5rem', display: 'flex' }}>
                         <div className="logo-icon"></div>
-                        <span className="logo-text">Aura</span>
+                        <span className="logo-text">luto</span>
                     </a>
                     <p className="footer-desc">
                         Redefining everyday style with premium essentials crafted for modern living. Quality, sustainability, and aesthetic excellence.
@@ -58,7 +58,7 @@ const Footer = () => {
 
             <div className="footer-bottom glass">
                 <div className="container flex justify-between items-center bottom-content">
-                    <p>&copy; 2026 Aura E-commerce. All rights reserved.</p>
+                    <p>&copy; 2026 luto E-commerce. All rights reserved.</p>
                     <div className="bottom-links">
                         <a href="#">Privacy Policy</a>
                         <a href="#">Terms of Service</a>

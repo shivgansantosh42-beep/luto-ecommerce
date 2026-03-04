@@ -1,7 +1,7 @@
 export const products = [
     {
         id: 1,
-        name: "Aura Essentials Hoodie",
+        name: "luto Essentials Hoodie",
         category: "Men",
         price: 85.00,
         image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",

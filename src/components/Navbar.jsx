@@ -21,7 +21,7 @@ const Navbar = () => {
                 {/* Logo */}
                 <a href="/" className="nav-logo">
                     <div className="logo-icon"></div>
-                    <span className="logo-text">Aura</span>
+                    <span className="logo-text">luto</span>
                 </a>
 
                 {/* Desktop Links */}

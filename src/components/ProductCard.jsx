@@ -31,7 +31,9 @@ const ProductCard = ({ product }) => {
                 </div>
 
                 <h3 className="product-name">{product.name}</h3>
-                <p className="product-price">${product.price.toFixed(2)}</p>
+                <p className="product-price">
+                    {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(product.price)}
+                </p>
             </div>
         </div>
     );

@@ -49,7 +49,7 @@ export const products = [
         name: "Classic Silk Blouse",
         category: "Women",
         price: 75.00,
-        image: "https://images.unsplash.com/photo-1588607831008-052670e94da9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        image: "https://images.unsplash.com/photo-1604085429183-fcf20b30ff7d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         rating: 4.5,
         isNew: false
     }

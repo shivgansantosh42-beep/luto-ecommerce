@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 import ProductCard from './ProductCard';
-import { products } from '../data/products';
+import { useProducts } from '../context/ProductContext';
 import './ProductGrid.css';
 
-const ProductGrid = () => {
-    const [activeCategory, setActiveCategory] = useState('All');
-    const categories = ['All', 'Men', 'Women', 'Accessories', 'Footwear'];
+const ProductGrid = ({ category: initialCategory, hideTitle }) => {
+    const { products, loading, error } = useProducts();
+    const [activeCategory, setActiveCategory] = useState(initialCategory || 'All');
+
+    React.useEffect(() => {
+        if (initialCategory) {
+            setActiveCategory(initialCategory);
+        }
+    }, [initialCategory]);
+
+    if (loading) return <div className="container" style={{ textAlign: 'center', padding: '4rem' }}><h3>Loading amazing products...</h3></div>;
+    if (error) return <div className="container" style={{ textAlign: 'center', padding: '4rem', color: 'red' }}><h3>{error}</h3></div>;
+
+    const categories = ['All', ...new Set(products.map(p => p.category))];
 
     const filteredProducts = activeCategory === 'All'
         ? products
@@ -13,20 +24,22 @@ const ProductGrid = () => {
 
     return (
         <section className="product-section container">
-            <div className="section-header">
-                <h2 className="section-title">Trending Now</h2>
-                <div className="category-filters hidden-mobile">
-                    {categories.map(cat => (
-                        <button
-                            key={cat}
-                            className={`filter-btn ${activeCategory === cat ? 'active' : ''}`}
-                            onClick={() => setActiveCategory(cat)}
-                        >
-                            {cat}
-                        </button>
-                    ))}
+            {!hideTitle && (
+                <div className="section-header">
+                    <h2 className="section-title">Trending Now</h2>
+                    <div className="category-filters hidden-mobile">
+                        {categories.map(cat => (
+                            <button
+                                key={cat}
+                                className={`filter-btn ${activeCategory === cat ? 'active' : ''}`}
+                                onClick={() => setActiveCategory(cat)}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
                 </div>
-            </div>
+            )}
 
             <div className="product-grid">
                 {filteredProducts.map(product => (

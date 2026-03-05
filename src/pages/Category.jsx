@@ -1,10 +1,7 @@
 import React, { useMemo } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import ProductGrid from '../components/ProductGrid';
-import { products } from '../data/products';
 import './Category.css';
-
-const VALID_CATEGORIES = ['Men', 'Women', 'Accessories', 'Footwear'];
 
 const Category = () => {
     const { name } = useParams();

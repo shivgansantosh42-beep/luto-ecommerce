@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { ChevronLeft, Star, Minus, Plus, ShoppingBag } from 'lucide-react';
-import { products } from '../data/products';
+import { useProducts } from '../context/ProductContext';
 import { useCart } from '../context/CartContext';
 import './ProductDetails.css';
 
@@ -9,10 +9,19 @@ const ProductDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { addToCart } = useCart();
+    const { products, loading, error } = useProducts();
     const [quantity, setQuantity] = useState(1);
     const [isAdded, setIsAdded] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    // Show loading state while context fetches products
+    if (loading) return <div className="container" style={{ padding: '5rem', textAlign: 'center' }}><h2>Loading product...</h2></div>;
+    if (error) return <div className="container" style={{ padding: '5rem', textAlign: 'center', color: 'red' }}><h2>{error}</h2></div>;
 
     const product = products.find(p => p.id === parseInt(id));
+
+    // Ensure we have a default image set if product exists
+    const currentImage = selectedImage || product?.image;
 
     if (!product) {
         return <Navigate to="/" replace />;
@@ -42,9 +51,30 @@ const ProductDetails = () => {
             <div className="product-details-container">
                 <div className="product-image-section">
                     <div className="image-wrapper">
-                        <img src={product.image} alt={product.name} />
+                        <img src={currentImage} alt={product.name} />
                         {product.isNew && <span className="badge new-badge">New Arrival</span>}
                     </div>
+                    {/* Image Gallery Thumbnails */}
+                    {product.images && product.images.length > 1 && (
+                        <div className="image-gallery-thumbnails" style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
+                            {product.images.map((img, index) => (
+                                <div
+                                    key={index}
+                                    onClick={() => setSelectedImage(img)}
+                                    style={{
+                                        width: '80px',
+                                        height: '80px',
+                                        cursor: 'pointer',
+                                        border: currentImage === img ? '2px solid var(--color-primary)' : '2px solid transparent',
+                                        borderRadius: '8px',
+                                        overflow: 'hidden'
+                                    }}
+                                >
+                                    <img src={img} alt={`${product.name} thumbnail ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 <div className="product-info-section">
